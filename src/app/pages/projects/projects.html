@@ -1,0 +1,37 @@
+<article class="view">
+  <p class="kicker">{{ t().projects.kicker }}</p>
+  <h1 class="section-title">{{ t().projects.title }}</h1>
+  <p class="lede">{{ t().projects.lede }}</p>
+
+  <div class="catalog">
+    @for (piece of catalog(); track piece.slug; let i = $index) {
+      <article class="piece">
+        <p class="piece__index">{{ pad(i + 1) }}</p>
+        <div class="piece__body">
+          <div class="piece__top">
+            <h2>
+              <a [routerLink]="['/proyectos', piece.slug]" translate="no">{{ piece.name }}</a>
+            </h2>
+            <p class="piece__year">{{ piece.year }}</p>
+          </div>
+          <p>{{ piece.summary }}</p>
+          <ul class="tags">
+            @for (tag of piece.tags; track tag) {
+              <li>{{ tag }}</li>
+            }
+          </ul>
+          <div class="piece__links">
+            <a [routerLink]="['/proyectos', piece.slug]">{{ t().projects.openCase }}</a>
+            @for (link of piece.links; track link.href) {
+              <a [href]="link.href" target="_blank" rel="noopener noreferrer">
+                {{ link.kind === 'demo' ? t().projects.demo : t().projects.code }}
+                <span class="sr-only">{{ t().opensNew }}</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            }
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+</article>

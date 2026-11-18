@@ -1,0 +1,33 @@
+<article class="view contact">
+  <p class="kicker">{{ t().contact.kicker }}</p>
+  <h1 class="section-title">{{ t().contact.title }}</h1>
+  <p class="lede">{{ t().contact.lede }}</p>
+  <p class="status">
+    <span class="status__dot" aria-hidden="true"></span>
+    {{ t().availability }}
+  </p>
+
+  <div class="channel-row">
+    <a class="channel" [href]="'mailto:' + person.email">{{ person.email }}</a>
+    <button type="button" class="copy" (click)="copyEmail()">
+      {{ copied() ? t().contact.copied : t().contact.copy }}
+    </button>
+  </div>
+  <span class="sr-only" aria-live="polite">{{ copied() ? t().contact.copied : '' }}</span>
+
+  <h2 class="subhead">{{ t().contact.channelsLabel }}</h2>
+  <ul class="frequencies">
+    @for (link of externalLinks; track link.id) {
+      <li>
+        <a [href]="link.href" target="_blank" rel="noopener noreferrer">
+          <span>{{ t().portName[link.id] }}</span>
+          <span class="frequencies__mark">
+            {{ portMarks[link.id] }}
+            <span class="sr-only">{{ t().opensNew }}</span>
+            <span aria-hidden="true">↗</span>
+          </span>
+        </a>
+      </li>
+    }
+  </ul>
+</article>

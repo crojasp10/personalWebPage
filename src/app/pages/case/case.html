@@ -1,0 +1,49 @@
+@if (model(); as piece) {
+  <article class="view case">
+    <p class="kicker">{{ t().projects.kicker }}</p>
+    <p class="case__year">{{ piece.year }}</p>
+    <h1 class="section-title" translate="no">{{ piece.name }}</h1>
+    <p class="story">{{ piece.story }}</p>
+
+    <dl class="meta">
+      <div>
+        <dt>{{ t().case.roleLabel }}</dt>
+        <dd>{{ piece.role }}</dd>
+      </div>
+      <div>
+        <dt>{{ t().case.toolsLabel }}</dt>
+        <dd>{{ piece.tags.join(', ') }}</dd>
+      </div>
+    </dl>
+
+    <h2 class="subhead">{{ t().case.outcomesLabel }}</h2>
+    <ul class="outcomes">
+      @for (item of piece.outcomes; track item) {
+        <li>{{ item }}</li>
+      }
+    </ul>
+
+    <div class="piece__links">
+      @for (link of piece.links; track link.href) {
+        <a [href]="link.href" target="_blank" rel="noopener noreferrer">
+          {{ link.kind === 'demo' ? t().projects.demo : t().projects.code }}
+          <span class="sr-only">{{ t().opensNew }}</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      }
+    </div>
+
+    <p class="back">
+      <a routerLink="/proyectos">{{ t().case.back }}</a>
+    </p>
+  </article>
+} @else {
+  <article class="view">
+    <p class="kicker">{{ t().projects.kicker }}</p>
+    <h1 class="section-title">{{ t().case.missingTitle }}</h1>
+    <p class="lede">{{ t().case.missingBody }}</p>
+    <p class="back">
+      <a routerLink="/proyectos">{{ t().case.back }}</a>
+    </p>
+  </article>
+}

@@ -1,0 +1,75 @@
+<a class="skip" href="#contenido">{{ t().skip }}</a>
+
+<div class="frame">
+  <aside class="rail">
+    <div class="rail__head">
+      <a class="seal-link" routerLink="/" [attr.aria-label]="t().sections.home">
+        <app-seal />
+      </a>
+      <div class="identity">
+        <a class="identity__name" routerLink="/" translate="no">{{ person.name }}</a>
+        <p class="identity__role">{{ t().role }}</p>
+        <p class="identity__place">{{ t().location }}</p>
+        <p class="status">
+          <span class="status__dot" aria-hidden="true"></span>
+          {{ t().availability }}
+        </p>
+      </div>
+      <div class="lang" role="group" [attr.aria-label]="t().langLabel">
+        <button type="button" [attr.aria-pressed]="i18n.lang() === 'es'" (click)="i18n.set('es')">
+          ES
+        </button>
+        <button type="button" [attr.aria-pressed]="i18n.lang() === 'en'" (click)="i18n.set('en')">
+          EN
+        </button>
+      </div>
+    </div>
+
+    <nav class="nav" [attr.aria-label]="t().navLabel">
+      @for (item of navItems; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: item.exact }"
+          ariaCurrentWhenActive="page"
+        >
+          <span class="nav__deg">{{ item.index }}</span>
+          <span>{{ t().nav[item.key] }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="rail__foot">
+      <ul class="ports">
+        @for (link of railLinks; track link.id) {
+          <li>
+            <a
+              [href]="link.href"
+              [attr.target]="link.external ? '_blank' : null"
+              [attr.rel]="link.external ? 'noopener noreferrer' : null"
+            >
+              <span class="ports__mark">{{ portMarks[link.id] }}</span>
+              <span class="ports__name">{{ t().portName[link.id] }}</span>
+              @if (link.external) {
+                <span class="sr-only">{{ t().opensNew }}</span>
+              }
+            </a>
+          </li>
+        }
+      </ul>
+      <p class="coords">{{ t().coordinates }}</p>
+    </div>
+  </aside>
+
+  <div class="sheet" [class.sheet--night]="night()">
+    <main id="contenido" tabindex="-1">
+      <div class="page">
+        <router-outlet />
+      </div>
+    </main>
+    <footer class="colophon">
+      <p>{{ t().footerNote }}</p>
+      <p translate="no">{{ person.name }}</p>
+    </footer>
+  </div>
+</div>

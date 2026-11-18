@@ -1,0 +1,39 @@
+<article class="view home">
+  <p class="kicker">{{ t().home.kicker }}</p>
+  <h1 class="display">
+    @for (line of t().home.lines; track line; let last = $last) {
+      <span class="display__line" [class.display__line--lean]="last">{{ line }}</span>
+    }
+  </h1>
+  <p class="lede">{{ t().home.lede }}</p>
+
+  <dl class="readings">
+    @for (reading of t().home.readings; track reading.label) {
+      <div>
+        <dt>{{ reading.label }}</dt>
+        <dd>{{ reading.value }}</dd>
+      </div>
+    }
+  </dl>
+
+  <div class="split">
+    <section>
+      <h2 class="subhead">{{ t().home.instrumentsLabel }}</h2>
+      <ul class="instruments">
+        @for (instrument of t().home.instruments; track instrument) {
+          <li>{{ instrument }}</li>
+        }
+      </ul>
+    </section>
+    <section class="now">
+      <h2 class="subhead">{{ t().home.nowLabel }}</h2>
+      <p>{{ t().home.now }}</p>
+    </section>
+  </div>
+
+  <nav class="onward" [attr.aria-label]="t().home.onwardLabel">
+    <a routerLink="/experiencia"><span>18°</span>{{ t().nav.experience }}</a>
+    <a routerLink="/proyectos"><span>36°</span>{{ t().nav.projects }}</a>
+    <a routerLink="/contacto"><span>54°</span>{{ t().nav.contact }}</a>
+  </nav>
+</article>

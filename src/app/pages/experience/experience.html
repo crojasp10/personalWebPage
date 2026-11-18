@@ -1,0 +1,30 @@
+<article class="view">
+  <p class="kicker">{{ t().experience.kicker }}</p>
+  <h1 class="section-title">{{ t().experience.title }}</h1>
+  <p class="lede">{{ t().experience.lede }}</p>
+
+  <ol class="log">
+    @for (job of posts(); track job.id) {
+      <li class="station">
+        <p class="station__period">{{ job.period }}</p>
+        <div class="station__body">
+          <p class="station__company" translate="no">{{ job.company }}</p>
+          <h2>{{ job.role }}</h2>
+          <p>{{ job.summary }}</p>
+          <ul class="tags">
+            @for (tag of job.tags; track tag) {
+              <li>{{ tag }}</li>
+            }
+          </ul>
+        </div>
+      </li>
+    }
+  </ol>
+
+  <section class="study">
+    <p class="kicker">{{ t().education.kicker }}</p>
+    <h2>{{ t().education.program }}</h2>
+    <p>{{ t().education.place }}</p>
+    <p class="study__period">{{ t().education.period }}</p>
+  </section>
+</article>
